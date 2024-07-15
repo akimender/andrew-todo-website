@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
+app.use(express.static(__dirname + '/public'));
 
 const passUserToView = require('./middleware/pass-user-to-view.js');
 const isSignedIn = require('./middleware/is-signed-in.js');
