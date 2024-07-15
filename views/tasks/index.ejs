@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="tasks.css">
+  </head>
+  <body>
+    <%- include('../../partials/_navbar.ejs') %>
+    <h1>Tasks</h1>
+
+    <h2>Add New Task</h2>
+    <form action="/users/<%= user._id %>/tasks" method="POST">
+      <div>
+        <label for="name">Task:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="dueDate">
+      </div>
+      <button type="submit">Add</button>
+    </form>
+
+    <% if (tasks && tasks.length > 0) { %>
+        <ul>
+          <% tasks.forEach(function(task) { %>
+            <li>
+                <%= task.name %>
+                <% if (task.dueDate) { %>
+                    <span class="countdown" data-due-date="<%= task.dueDate %>"></span>
+                <% } %>
+
+                <a href="/users/<%= user._id %>/tasks/<%= task._id %>/edit">Edit</a>
+                <form action="/users/<%= user._id %>/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+          <% }) %>
+        </ul>
+    <% } %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+          const countdownElements = document.querySelectorAll('.countdown');
+          countdownElements.forEach(function (element) {
+            const dueDate = new Date(element.getAttribute('data-due-date'));
+            const today = new Date();
+            const timeDiff = dueDate - today;
+            const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            if (daysRemaining > 0) {
+              element.textContent = ` (Due in ${daysRemaining} day${daysRemaining > 1 ? 's' : ''})`;
+            } else if (daysRemaining === 0) {
+              element.textContent = ` (Due today)`;
+            } else {
+              element.textContent = ` (Overdue by ${Math.abs(daysRemaining)} day${Math.abs(daysRemaining) > 1 ? 's' : ''})`;
+            }
+          });
+        });
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+</head>
+<body>
+  <%- include('../../partials/_navbar.ejs') %>
+  <h1>Edit Task</h1>
+
+  <form action="/users/<%= user._id %>/tasks/<%= task._id %>?_method=PUT" method="POST">
+    <div>
+      <label for="name">Task:</label>
+      <input type="text" id="name" name="name" value="<%= task.name %>" required>
+    </div>
+    <div>
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="dueDate" value="<%= task.dueDate ? new Date(task.dueDate).toISOString().substr(0, 10) : '' %>">
+    </div>
+    <button type="submit">Update Task</button>
+  </form>
+</body>
+</html>
