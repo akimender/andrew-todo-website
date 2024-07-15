@@ -1,10 +1,12 @@
-<nav>
-    <a href="/">Home</a>
-    <% if(user) { %>
-      <a href="/users/<%=user._id%>/tasks">View my Tasks</a>
-      <a href="/auth/sign-out">Sign Out</a>
-    <% } else { %>
-      <a href="/auth/sign-in">Sign In</a>
-      <a href="/auth/sign-up">Sign Up</a>
-    <% } %>
-</nav>
+<div style="display: flex; flex-direction: row; justify-content: center;" class="nav-bar">
+    <nav>
+        <a style="margin: 0px 10px 0px 10px; font-size: 24px; font-family: Courier New;" href="/">Home</a>
+        <% if(user) { %>
+          <a style="margin: 0px 10px 0px 10px; font-size: 24px; font-family: Courier New;" href="/users/<%=user._id%>/tasks">View my Tasks</a>
+          <a style="margin: 0px 10px 0px 10px; font-size: 24px; font-family: Courier New;" href="/auth/sign-out">Sign Out</a>
+        <% } else { %>
+          <a style="margin: 0px 10px 0px 10px; font-size: 24px; font-family: Courier New;" href="/auth/sign-in">Sign In</a>
+          <a style="margin: 0px 10px 0px 10px; font-size: 24px; font-family: Courier New;" href="/auth/sign-up">Sign Up</a>
+        <% } %>
+    </nav>
+</div>

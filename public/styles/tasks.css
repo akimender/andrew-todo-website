@@ -1,0 +1,77 @@
+body {
+    background-color: lightcyan;
+}
+
+h1, h2, h3, label, span, button, input, a {
+    font-family:'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+label {
+    font-size: 40px;
+}
+
+input {
+    width: 270px;
+    height: 30px;
+    font-size: 30px;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    font-size: 24px;
+    margin: 5px 0px 0px 8px;
+}
+
+#name {
+    width: 365px;
+}
+
+#submit-button {
+    background-color: lightgreen;
+    font-size: 30px;
+    margin: 10px 0px 0px 0px;
+    border-radius: 12px;
+}
+
+#submit-button:hover {
+    background-color: rgb(130,220,130);
+}
+
+button:hover {
+    background-color: rgb(130,220,130);
+}
+
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+a:active {
+    color: black;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.task, span {
+    font-size: 24px;
+}

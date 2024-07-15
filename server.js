@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
+const User = require('./models/user.js')
+
 app.use(express.static(__dirname + '/public'));
 
 const passUserToView = require('./middleware/pass-user-to-view.js');
@@ -35,23 +37,22 @@ app.use(
 
 app.use(passUserToView)
 
-app.get('/', (req, res) => {
-  res.render('index.ejs', {
-    user: req.session.user,
-  });
+app.get('/', async (req, res) => {
+  if (req.session.user) {
+    const user = await User.findById(req.session.user._id);
+    res.render('index.ejs', {
+      user,
+    });
+  } else {
+    res.render('index.ejs', {
+      user: null,
+    })
+  }
 });
 
 app.use('/auth', authController);
 app.use(isSignedIn)
 app.use('/users/:userId/tasks',tasksController);
-
-app.get('/vip-lounge', (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send('Sorry, no guests allowed.');
-  }
-});
 
 app.use('/auth', authController);
 

@@ -8,38 +8,38 @@
   </head>
   <body>
     <%- include('../../partials/_navbar.ejs') %>
-    <h1>Tasks</h1>
+    <div class="main-container">
 
-    <h2>Add New Task</h2>
-    <form action="/users/<%= user._id %>/tasks" method="POST">
-      <div>
-        <label for="name">Task:</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div>
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" name="dueDate">
-      </div>
-      <button type="submit">Add</button>
-    </form>
+        <h1>Add New Task</h1>
+        <form style="display: flex; flex-direction: column; justify-content: center;" action="/users/<%= user._id %>/tasks" method="POST">
+          <div>
+            <label for="name">Task:</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate">
+          </div>
+          <button id="submit-button" type="submit">Add</button>
+        </form>
+    
+        <% if (tasks && tasks.length > 0) { %>
+            <ul>
+              <% tasks.forEach(function(task) { %>
+                <ul>
+                    <a class="task" href="/users/<%= user._id %>/tasks/<%= task._id %>/edit"><%= task.name %></a>
+                    <% if (task.dueDate) { %>
+                        <span class="countdown" data-due-date="<%= task.dueDate %>"></span>
+                    <% } %>
+                    <form action="/users/<%= user._id %>/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;">
+                        <button type="submit">Done!</button>
+                    </form>
+                </ul>
+              <% }) %>
+            </ul>
+        <% } %>    
+    </div>
 
-    <% if (tasks && tasks.length > 0) { %>
-        <ul>
-          <% tasks.forEach(function(task) { %>
-            <li>
-                <%= task.name %>
-                <% if (task.dueDate) { %>
-                    <span class="countdown" data-due-date="<%= task.dueDate %>"></span>
-                <% } %>
-
-                <a href="/users/<%= user._id %>/tasks/<%= task._id %>/edit">Edit</a>
-                <form action="/users/<%= user._id %>/tasks/<%= task._id %>?_method=DELETE" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-          <% }) %>
-        </ul>
-    <% } %>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -4,9 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
+  <link rel="stylesheet" href="styles/home.css" />
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1>Welcome to Todos</h1>
+  <div class="main-container">
+    
+    <% if (user) { %>
+      <h1>Hello <%= user.username %>.</h1>
+      <% if (user.taskCounter === 1) { %>
+        <h3>You have completed <%= user.taskCounter %> task</h3>
+      <% } else { %>
+        <h3>You have completed <%= user.taskCounter %> tasks</h3>
+      <% } %>
+
+    <% } else { %>
+      <h1>Todos</h1>
+      <h3>Plan your tasks simply.</h3>
+    <% } %>
+  </div>
+
 </body>
 </html>
